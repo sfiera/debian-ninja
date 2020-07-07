@@ -71,6 +71,7 @@ local configs = [{
           'ninja-build_*.deb',
           'ninja-build_*.dsc',
         ],
+        file_exists: 'skip',  // dsc is same for different arch
       },
       when: { event: 'tag' },
     }],

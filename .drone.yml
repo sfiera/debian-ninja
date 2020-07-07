@@ -37,6 +37,7 @@ steps:
   settings:
     api_key:
       from_secret: github_token
+    file_exists: skip
     files:
     - ninja-build_*.deb
     - ninja-build_*.dsc
@@ -83,6 +84,7 @@ steps:
   settings:
     api_key:
       from_secret: github_token
+    file_exists: skip
     files:
     - ninja-build_*.deb
     - ninja-build_*.dsc
@@ -129,6 +131,7 @@ steps:
   settings:
     api_key:
       from_secret: github_token
+    file_exists: skip
     files:
     - ninja-build_*.deb
     - ninja-build_*.dsc
@@ -187,6 +190,7 @@ steps:
   settings:
     api_key:
       from_secret: github_token
+    file_exists: skip
     files:
     - ninja-build_*.deb
     - ninja-build_*.dsc
