@@ -4,25 +4,42 @@ local stretch20200607armv7 =
 local buster20200607armv7 =
   'debian@sha256:43e8691b4e25f4b0fd0f10bca8ea11b9f0578b0e5d2fe3b085290455dd07c0b6';
 
-local configs = {
-  stretch: {
-    amd64: 'debian:stretch-slim',
-    arm64: 'debian:stretch-slim',
-    arm: stretch20200607armv7,
-  },
-  buster: {
-    amd64: 'debian:buster-slim',
-    arm64: 'debian:buster-slim',
-    arm: buster20200607armv7,
-  },
-  xenial: { amd64: 'ubuntu:xenial' },
-  bionic: { amd64: 'ubuntu:bionic' },
-  focal: { amd64: 'ubuntu:focal' },
-};
+local configs = [{
+  distro: 'debian',
+  arch: 'amd64',
+  versions: [
+    { codename: 'buster', testImage: 'debian:buster-slim' },
+    { codename: 'stretch', testImage: 'debian:stretch-slim' },
+  ],
+}, {
+  distro: 'debian',
+  arch: 'arm64',
+  versions: [
+    { codename: 'buster', testImage: 'debian:buster-slim' },
+    { codename: 'stretch', testImage: 'debian:stretch-slim' },
+  ],
+}, {
+  distro: 'debian',
+  arch: 'arm',
+  versions: [
+    { codename: 'buster', testImage: buster20200607armv7 },
+    { codename: 'stretch', testImage: stretch20200607armv7 },
+  ],
+}, {
+  distro: 'ubuntu',
+  arch: 'amd64',
+  versions: [
+    { codename: 'focal', testImage: 'ubuntu:focal' },
+    { codename: 'bionic', testImage: 'ubuntu:bionic' },
+    { codename: 'xenial', testImage: 'ubuntu:xenial' },
+  ],
+}];
 
 [
   {
-    local testImage = configs[distro][arch],
+    local distro = config.distro,
+    local arch = config.arch,
+    local versions = config.versions,
 
     kind: 'pipeline',
     type: 'docker',
@@ -33,19 +50,19 @@ local configs = {
       arch: arch,
     },
 
-    steps: [{
-      name: 'deb',
-      image: 'arescentral/deb:%s' % distro,
-      settings: { dir: distro },
+    steps: std.flattenArrays([[{
+      name: 'deb/%s' % version.codename,
+      image: 'arescentral/deb:%s' % version.codename,
+      settings: { dir: version.codename },
     }, {
-      name: 'check',
-      image: testImage,
+      name: 'check/%s' % version.codename,
+      image: version.testImage,
       commands: [
         'uname -a',
         'dpkg -i ninja-build_*.deb',
         'ninja --version',
       ],
-    }, {
+    }] for version in versions]) + [{
       name: 'publish',
       image: 'plugins/github-release',
       settings: {
@@ -58,6 +75,5 @@ local configs = {
       when: { event: 'tag' },
     }],
   }
-  for distro in std.objectFields(configs)
-  for arch in std.objectFields(configs[distro])
+  for config in configs
 ]
