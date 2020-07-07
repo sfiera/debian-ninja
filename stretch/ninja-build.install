@@ -1,1 +1,1 @@
-../debian/ninja-build.install
+ninja usr/bin
