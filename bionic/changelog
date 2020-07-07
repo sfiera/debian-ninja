@@ -1,0 +1,5 @@
+ninja-build (1.10.0-1~18.04bionic) bionic; urgency=medium
+
+  * New upstream release.
+
+ -- Chris Pickel <sfiera@twotaled.com>  Thu, 02 Jul 2020 12:41:09 +0000
