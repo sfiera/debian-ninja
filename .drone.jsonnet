@@ -59,7 +59,7 @@ local configs = [{
       image: version.testImage,
       commands: [
         'uname -a',
-        'dpkg -i ninja-build_*%s_%s.deb' % [version.codename, arch],
+        'dpkg -i ninja-build_*%s_*.deb' % version.codename,
         'ninja --version',
       ],
     }] for version in versions]) + [{
