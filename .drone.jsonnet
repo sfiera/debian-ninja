@@ -52,7 +52,7 @@ local configs = [{
 
     steps: std.flattenArrays([[{
       name: 'deb/%s' % version.codename,
-      image: 'arescentral/deb:%s' % version.codename,
+      image: 'arescentral/deb-%s' % version.codename,
       settings: { dir: version.codename },
     }, {
       name: 'check/%s' % version.codename,
