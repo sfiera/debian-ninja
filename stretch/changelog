@@ -1,4 +1,4 @@
-ninja-build (1.10.0-1~10stretch) stretch; urgency=medium
+ninja-build (1.10.0-1~9stretch) stretch; urgency=medium
 
   * New upstream release.
 
