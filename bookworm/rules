@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# do nothing
+
+override_dh_auto_build:
+	python3 ./configure.py --bootstrap --verbose
+	./ninja -v all
+
+override_dh_auto_test:
+	./ninja_test
+
+override_dh_auto_install:
+	# do nothing

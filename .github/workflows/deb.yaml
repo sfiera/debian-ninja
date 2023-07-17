@@ -1,0 +1,121 @@
+on:
+  push: {branches: [main]}
+
+jobs:
+  bookworm:
+    runs-on: ubuntu-latest
+    env: {DISTRO: bookworm}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc
+
+  bullseye:
+    needs: bookworm
+    runs-on: ubuntu-latest
+    env: {DISTRO: bullseye}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc
+
+  buster:
+    needs: bullseye
+    runs-on: ubuntu-latest
+    env: {DISTRO: buster}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc
+
+  jammy:
+    runs-on: ubuntu-latest
+    env: {DISTRO: jammy}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc
+
+  focal:
+    needs: jammy
+    runs-on: ubuntu-latest
+    env: {DISTRO: focal}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc
+
+  bionic:
+    needs: focal
+    runs-on: ubuntu-latest
+    env: {DISTRO: bionic}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: arescentral/deb:${{ env.DISTRO }}
+          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          run: cd /work && deb-drone
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DISTRO }}
+          path: |
+            ninja-build_*.deb
+            ninja-build_*.dsc

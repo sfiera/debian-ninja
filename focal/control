@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Chris Pickel <sfiera@twotaled.com>
 Build-Depends:
  debhelper,
- python3
+ python3:any
 Standards-Version: 4.5.0
 Homepage: https://ninja-build.org/
 Vcs-Git: https://github.com/ninja-build/ninja.git
