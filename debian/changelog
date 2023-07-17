@@ -1,10 +1,10 @@
-ninja-build (1.10.2-1~18.04bionic) bionic; urgency=medium
+ninja-build (1.10.2-1~%DIST_VERSION%%DIST_NAME%) %DIST_NAME%; urgency=medium
 
   See https://groups.google.com/d/msg/ninja-build/oobwq_F0PpA/FeJC5LoRBgAJ for the release notes.
 
  -- Chris Pickel <sfiera@twotaled.com>  Tue, 26 Jan 2021 02:41:47 +0000
 
-ninja-build (1.10.0-1~18.04bionic) bionic; urgency=medium
+ninja-build (1.10.0-1~%DIST_VERSION%%DIST_NAME%) %DIST_NAME%; urgency=medium
 
   * New upstream release.
 

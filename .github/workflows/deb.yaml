@@ -4,19 +4,24 @@ on:
 jobs:
   bookworm:
     runs-on: ubuntu-latest
-    env: {DISTRO: bookworm}
+    env: {DIST_NAME: bookworm, DIST_VERSION: 12}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
@@ -24,19 +29,24 @@ jobs:
   bullseye:
     needs: bookworm
     runs-on: ubuntu-latest
-    env: {DISTRO: bullseye}
+    env: {DIST_NAME: bullseye, DIST_VERSION: 11}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
@@ -44,38 +54,48 @@ jobs:
   buster:
     needs: bullseye
     runs-on: ubuntu-latest
-    env: {DISTRO: buster}
+    env: {DIST_NAME: buster, DIST_VERSION: 10}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
 
   jammy:
     runs-on: ubuntu-latest
-    env: {DISTRO: jammy}
+    env: {DIST_NAME: jammy, DIST_VERSION: 22.04}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
@@ -83,19 +103,24 @@ jobs:
   focal:
     needs: jammy
     runs-on: ubuntu-latest
-    env: {DISTRO: focal}
+    env: {DIST_NAME: focal, DIST_VERSION: 20.04}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
@@ -103,19 +128,24 @@ jobs:
   bionic:
     needs: focal
     runs-on: ubuntu-latest
-    env: {DISTRO: bionic}
+    env: {DIST_NAME: bionic, DIST_VERSION: 18.04}
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          sed --in-place= \
+            -e "s/%DIST_NAME%/$DIST_NAME/g" \
+            -e "s/%DIST_VERSION%/$DIST_VERSION/g" \
+            debian/changelog
 
       - uses: addnab/docker-run-action@v3
         with:
-          image: arescentral/deb:${{ env.DISTRO }}
-          options: -v ${{ github.workspace }}:/work -e PLUGIN_DIR=${{ env.DISTRO }}
+          image: arescentral/deb:${{ env.DIST_NAME }}
+          options: -v ${{ github.workspace }}:/work
           run: cd /work && deb-drone
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.DISTRO }}
+          name: ${{ env.DIST_NAME }}
           path: |
             ninja-build_*.deb
             ninja-build_*.dsc
